@@ -1,0 +1,15 @@
+name: "Private Terraform Modules"
+description: "Gives this job access to private terraform modules."
+inputs:
+  org:
+    description: "The GitHub org that access is for"
+    required: true
+  token:
+    description: "GitHub token with access to private repos"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Setup private repo credentials for private modules
+      run: git config --global url."https://git:${{ inputs.token }}@github.com/${{ inputs.org }}".insteadOf "https://github.com/${{ inputs.org }}"
+      shell: bash
