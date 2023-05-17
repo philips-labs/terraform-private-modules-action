@@ -11,5 +11,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup private repo credentials for private modules
-      run: git config --global url."https://git:${{ inputs.token }}@github.com/${{ inputs.org }}".insteadOf "https://github.com/${{ inputs.org }}"
+      run: |
+        git config --global url."https://git:${{ inputs.token }}@github.com/${{ inputs.org }}".insteadOf "https://github.com/${{ inputs.org }}"
+        git config --global url."https://${{ inputs.token }}:x-oauth-basic@github.com/${{ inputs.org }}".insteadOf ssh://git@github.com/${{ inputs.org }}
       shell: sh
